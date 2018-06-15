@@ -5,8 +5,9 @@ const gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
-    maps = require('gulp-sourcemaps'),
     cleancss = require('gulp-clean-css'),
+    maps = require('gulp-sourcemaps'),
+    imagemin = require('gulp-imagemin'),
     del = require('del');
 
 gulp.task('concatScripts', () => {
@@ -30,7 +31,6 @@ gulp.task('compileSass', () => {
     return gulp.src('sass/global.scss')
     .pipe(maps.init())
     .pipe(sass())
-    .pipe(rename('global.css'))
     .pipe(maps.write('./'))
     .pipe(gulp.dest('css'))
 });
@@ -41,6 +41,12 @@ gulp.task('styles', ['compileSass'], () => {
     .pipe(rename('all.min.css'))
     .pipe(gulp.dest('dist/styles'))
 });
+
+gulp.task('images', () =>
+    gulp.src('images/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('dist/content'))
+);
 
 gulp.task('clean', () => {
     del(['css', 'js/global*.js*', 'dist']);
