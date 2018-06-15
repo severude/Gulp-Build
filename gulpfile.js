@@ -5,6 +5,7 @@ const gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
+    maps = require('gulp-sourcemaps'),
     cleancss = require('gulp-clean-css'),
     del = require('del');
 
@@ -12,7 +13,9 @@ gulp.task('concatScripts', () => {
     return gulp.src(['js/jquery.js',
             'js/circle/circle.js',
             'js/circle/autogrow.js'])
+    .pipe(maps.init())
     .pipe(concat("global.js"))
+    .pipe(maps.write('./'))
     .pipe(gulp.dest('js'))
 });
 
@@ -25,8 +28,10 @@ gulp.task('scripts', ['concatScripts'], () => {
 
 gulp.task('compileSass', () => {
     return gulp.src('sass/global.scss')
+    .pipe(maps.init())
     .pipe(sass())
     .pipe(rename('global.css'))
+    .pipe(maps.write('./'))
     .pipe(gulp.dest('css'))
 });
 
