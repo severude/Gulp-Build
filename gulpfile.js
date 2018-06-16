@@ -59,7 +59,7 @@ gulp.task('browser', () => {
 });
 
 gulp.task('clean', () => {
-    del(['dist']);
+    del(['dist', 'js/global.js*', 'css/global.css*']);
 });
 
 gulp.task('dist', ['scripts', 'styles', 'images'], () => {
