@@ -8,7 +8,8 @@ const gulp = require('gulp'),
     cleancss = require('gulp-clean-css'),
     maps = require('gulp-sourcemaps'),
     imagemin = require('gulp-imagemin'),
-    del = require('del');
+    del = require('del'),
+    browser = require('browser-sync').create();
 
 gulp.task('concatScripts', () => {
     return gulp.src(['js/jquery.js',
@@ -44,14 +45,25 @@ gulp.task('styles', ['compileSass'], () => {
 
 gulp.task('images', () =>
     gulp.src('images/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest('dist/content'))
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/content'))
 );
 
-gulp.task('clean', () => {
-    del(['css', 'js/global*.js*', 'dist']);
+gulp.task('browser', () => {
+    browser.init({
+        server: { baseDir: './' }
+    });
+
+    gulp.watch('sass/**/*.scss', ['styles']);
+    gulp.watch("*.html").on('change', browser.reload);
 });
 
-gulp.task("default", ["hello"], () => {
-    console.log("This is the default task!");
+gulp.task('clean', () => {
+    del(['dist']);
+});
+
+gulp.task('build', ['scripts', 'styles', 'images']);
+
+gulp.task("default", ["clean"], () => {
+    gulp.start('build');
 });
