@@ -2,3 +2,7 @@
 .sass-cache
 node_modules
 package-lock.json
+css/global.css
+css/global.css.map
+js/global.js
+js/global.js.map

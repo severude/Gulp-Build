@@ -62,8 +62,15 @@ gulp.task('clean', () => {
     del(['dist']);
 });
 
-gulp.task('build', ['scripts', 'styles', 'images']);
+gulp.task('dist', ['scripts', 'styles', 'images'], () => {
+    return gulp.src(['index.html', 'icons/**'], { base: './' })
+    .pipe(gulp.dest('dist'));
+});
 
-gulp.task("default", ["clean"], () => {
-    gulp.start('build');
+gulp.task("build", ["clean"], () => {
+    gulp.start('dist');
+});
+
+gulp.task('default', ['build'], () => {
+    gulp.start('browser');
 });
