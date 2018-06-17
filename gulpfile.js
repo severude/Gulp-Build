@@ -34,6 +34,7 @@ gulp.task('compileSass', () => {
     .pipe(sass())
     .pipe(maps.write('./'))
     .pipe(gulp.dest('css'))
+    .pipe(browser.stream({match: '**/*.css'}));
 });
 
 gulp.task('styles', ['compileSass'], () => {
@@ -51,11 +52,10 @@ gulp.task('images', () =>
 
 gulp.task('browser', () => {
     browser.init({
-        server: { baseDir: './' }
+        injectChanges: true,
+        server: './'
     });
-
     gulp.watch('sass/**/*.scss', ['styles']);
-    gulp.watch("*.html").on('change', browser.reload);
 });
 
 gulp.task('clean', () => {
