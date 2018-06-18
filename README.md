@@ -19,3 +19,7 @@ gulp clean - Deletes all files and folders within the dist folder.
 gulp build - Runs the clean, scripts, styles, and images tasks.  Copies all project files to the dist folder.
 
 gulp - Runs the build task and serves the project on a local web server.  Any changes to a SCSS file triggers the styles task and reloads the browser to display the new changes.
+
+---
+
+Great work on this project! Your code is clean & easy to read. Keep up the great coding!
